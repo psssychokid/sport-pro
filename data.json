@@ -1,388 +1,117 @@
 {
-    "database": "Sport Shop Management System",
-    "version": "1.0",
-    "created": "2025-01-15",
-    "tables": {
-      "users": [
-        {
-          "user_id": 1,
-          "email": "admin@sportpro.ru",
-          "password": "Admin123!",
-          "first_name": "Дмитрий",
-          "last_name": "Сагдиев",
-          "phone": "+79161112233",
-          "user_role": "admin",
-          "bonus_points": 0,
-          "is_active": true
-        },
-        {
-          "user_id": 2,
-          "email": "manager@sportpro.ru",
-          "password": "Manager123!",
-          "first_name": "Ольга",
-          "last_name": "Иванова",
-          "phone": "+79162223344",
-          "user_role": "manager",
-          "bonus_points": 0,
-          "is_active": true
-        },
-        {
-          "user_id": 3,
-          "email": "ivanov@mail.ru",
-          "password": "Client123!",
-          "first_name": "Иван",
-          "last_name": "Иванов",
-          "phone": "+79165556677",
-          "user_role": "customer",
-          "bonus_points": 150,
-          "is_active": true
-        },
-        {
-          "user_id": 4,
-          "email": "petrova@mail.ru",
-          "password": "Client123!",
-          "first_name": "Мария",
-          "last_name": "Петрова",
-          "phone": "+79166667788",
-          "user_role": "customer",
-          "bonus_points": 320,
-          "is_active": true
-        }
-      ],
-      
-      "categories": [
-        {"category_id": 1, "category_name": "Одежда", "parent_id": null, "is_active": true},
-        {"category_id": 2, "category_name": "Обувь", "parent_id": null, "is_active": true},
-        {"category_id": 3, "category_name": "Инвентарь", "parent_id": null, "is_active": true},
-        {"category_id": 4, "category_name": "Аксессуары", "parent_id": null, "is_active": true},
-        {"category_id": 5, "category_name": "Футболки", "parent_id": 1, "is_active": true},
-        {"category_id": 6, "category_name": "Шорты", "parent_id": 1, "is_active": true},
-        {"category_id": 7, "category_name": "Кроссовки", "parent_id": 2, "is_active": true},
-        {"category_id": 8, "category_name": "Мячи", "parent_id": 3, "is_active": true}
-      ],
-      
-      "brands": [
-        {"brand_id": 1, "brand_name": "Nike", "country": "USA", "is_active": true},
-        {"brand_id": 2, "brand_name": "Adidas", "country": "Germany", "is_active": true},
-        {"brand_id": 3, "brand_name": "Puma", "country": "Germany", "is_active": true},
-        {"brand_id": 4, "brand_name": "Reebok", "country": "USA", "is_active": true},
-        {"brand_id": 5, "brand_name": "Wilson", "country": "USA", "is_active": true},
-        {"brand_id": 6, "brand_name": "Spalding", "country": "USA", "is_active": true}
-      ],
-      
-      "suppliers": [
-        {
-          "supplier_id": 1,
-          "supplier_name": "СпортИмпорт ООО",
-          "contact_person": "Иванов И.И.",
-          "phone": "+79161234567",
-          "email": "import@sport.ru",
-          "rating": 4.8
-        },
-        {
-          "supplier_id": 2,
-          "supplier_name": "ПрофиСпорт ЗАО",
-          "contact_person": "Петрова М.С.",
-          "phone": "+79167654321",
-          "email": "info@profisport.ru",
-          "rating": 4.5
-        }
-      ],
-      
-      "products": [
-        {
-          "product_id": 1,
-          "product_code": "NIKE-TS-DRIFIT",
-          "product_name": "Футболка Nike Dri-FIT Academy",
-          "category_id": 5,
-          "brand_id": 1,
-          "supplier_id": 1,
-          "description": "Дышащая футболка для тренировок с технологией Dri-FIT",
-          "gender": "male",
-          "sport_type": "футбол",
-          "season": "all",
-          "is_active": true,
-          "specifications": {
-            "material": "полиэстер 100%",
-            "weight": "150г",
-            "care": "машинная стирка 30°C"
-          }
-        },
-        {
-          "product_id": 2,
-          "product_code": "ADIDAS-UB-22",
-          "product_name": "Кроссовки Adidas Ultraboost 22",
-          "category_id": 7,
-          "brand_id": 2,
-          "supplier_id": 2,
-          "description": "Беговые кроссовки с технологией Boost для максимального комфорта",
-          "gender": "unisex",
-          "sport_type": "бег",
-          "season": "all",
-          "is_active": true,
-          "specifications": {
-            "material": "сетка Primeblue",
-            "drop": "10мм",
-            "weight": "310г",
-            "closure": "шнуровка"
-          }
-        },
-        {
-          "product_id": 3,
-          "product_code": "PUMA-SH-ESS",
-          "product_name": "Шорты Puma Essentials",
-          "category_id": 6,
-          "brand_id": 3,
-          "supplier_id": 1,
-          "description": "Удобные шорты для тренировок из мягкого материала",
-          "gender": "male",
-          "sport_type": "фитнес",
-          "season": "summer",
-          "is_active": true,
-          "specifications": {
-            "material": "полиэстер 85%, хлопок 15%",
-            "pockets": "2 боковых",
-            "waist": "резинка со шнурком"
-          }
-        },
-        {
-          "product_id": 4,
-          "product_code": "WILSON-VB-OFF",
-          "product_name": "Мяч волейбольный Wilson Official",
-          "category_id": 8,
-          "brand_id": 5,
-          "supplier_id": 2,
-          "description": "Официальный мяч для волейбола профессионального уровня",
-          "gender": "unisex",
-          "sport_type": "волейбол",
-          "season": "all",
-          "is_active": true,
-          "specifications": {
-            "size": "5",
-            "weight": "260-280г",
-            "pressure": "0.30-0.325 кг/см²",
-            "cover": "кожа"
-          }
-        },
-        {
-          "product_id": 5,
-          "product_code": "REEBOX-NANO",
-          "product_name": "Кроссовки Reebok Nano X2",
-          "category_id": 7,
-          "brand_id": 4,
-          "supplier_id": 1,
-          "description": "Кроссовки для кроссфита с улучшенной стабильностью",
-          "gender": "unisex",
-          "sport_type": "кроссфит",
-          "season": "all",
-          "is_active": true,
-          "specifications": {
-            "material": "сетка Flexweave",
-            "drop": "4мм",
-            "weight": "340г",
-            "features": "поддержка боковых движений"
-          }
-        }
-      ],
-      
-      "product_variants": [
-        {
-          "variant_id": 1,
-          "product_id": 1,
-          "size": "M",
-          "color": "черный",
-          "barcode": "123456789001",
-          "purchase_price": 1500.00,
-          "selling_price": 2999.00,
-          "discount_percent": 0,
-          "sku": "NIKE-TS-BLK-M",
-          "min_stock_level": 10,
-          "stock_quantity": 25
-        },
-        {
-          "variant_id": 2,
-          "product_id": 1,
-          "size": "L",
-          "color": "черный",
-          "barcode": "123456789002",
-          "purchase_price": 1500.00,
-          "selling_price": 2999.00,
-          "discount_percent": 10,
-          "sku": "NIKE-TS-BLK-L",
-          "min_stock_level": 15,
-          "stock_quantity": 18
-        },
-        {
-          "variant_id": 3,
-          "product_id": 2,
-          "size": "42",
-          "color": "черный/белый",
-          "barcode": "123456789005",
-          "purchase_price": 5000.00,
-          "selling_price": 8999.00,
-          "discount_percent": 0,
-          "sku": "ADIDAS-UB-42-BW",
-          "min_stock_level": 5,
-          "stock_quantity": 8
-        },
-        {
-          "variant_id": 4,
-          "product_id": 2,
-          "size": "43",
-          "color": "белый",
-          "barcode": "123456789006",
-          "purchase_price": 5000.00,
-          "selling_price": 8999.00,
-          "discount_percent": 15,
-          "sku": "ADIDAS-UB-43-WH",
-          "min_stock_level": 5,
-          "stock_quantity": 12
-        },
-        {
-          "variant_id": 5,
-          "product_id": 3,
-          "size": "M",
-          "color": "серый",
-          "barcode": "123456789017",
-          "purchase_price": 1200.00,
-          "selling_price": 2499.00,
-          "discount_percent": 0,
-          "sku": "PUMA-SH-GRY-M",
-          "min_stock_level": 10,
-          "stock_quantity": 30
-        }
-      ],
-      
-      "orders": [
-        {
-          "order_id": 1,
-          "order_number": "ORD-2024-001",
-          "user_id": 3,
-          "employee_id": 2,
-          "order_date": "2024-01-15T10:30:00",
-          "status": "completed",
-          "total_amount": 8497.00,
-          "discount_amount": 299.90,
-          "final_amount": 8197.10,
-          "payment_method": "card",
-          "payment_status": "paid",
-          "notes": "Первый заказ клиента"
-        },
-        {
-          "order_id": 2,
-          "order_number": "ORD-2024-002",
-          "user_id": 4,
-          "employee_id": 2,
-          "order_date": "2024-01-16T14:20:00",
-          "status": "processing",
-          "total_amount": 8999.00,
-          "discount_amount": 0,
-          "final_amount": 8999.00,
-          "payment_method": "cash",
-          "payment_status": "paid",
-          "notes": "Заказ на доставку"
-        }
-      ],
-      
-      "order_items": [
-        {
-          "order_item_id": 1,
-          "order_id": 1,
-          "variant_id": 2,
-          "quantity": 2,
-          "unit_price": 2999.00,
-          "discount_percent": 10,
-          "total_price": 5398.20
-        },
-        {
-          "order_item_id": 2,
-          "order_id": 1,
-          "variant_id": 5,
-          "quantity": 1,
-          "unit_price": 2499.00,
-          "discount_percent": 0,
-          "total_price": 2499.00
-        },
-        {
-          "order_item_id": 3,
-          "order_id": 2,
-          "variant_id": 3,
-          "quantity": 1,
-          "unit_price": 8999.00,
-          "discount_percent": 0,
-          "total_price": 8999.00
-        }
-      ],
-      
-      "order_statuses": [
-        {"status_id": 1, "status_name": "Новый", "description": "Заказ создан"},
-        {"status_id": 2, "status_name": "В обработке", "description": "Заказ обрабатывается"},
-        {"status_id": 3, "status_name": "Собран", "description": "Товары собраны"},
-        {"status_id": 4, "status_name": "Отправлен", "description": "Передан в доставку"},
-        {"status_id": 5, "status_name": "Доставлен", "description": "Доставлен клиенту"},
-        {"status_id": 6, "status_name": "Отменен", "description": "Заказ отменен"}
-      ],
-      
-      "shipments": [
-        {
-          "shipment_id": 1,
-          "shipment_number": "SHIP-2024-001",
-          "supplier_id": 1,
-          "shipment_date": "2024-01-10",
-          "status": "delivered",
-          "total_cost": 54000.00,
-          "invoice_number": "INV-001-2024"
-        }
-      ],
-      
-      "shipment_items": [
-        {
-          "shipment_item_id": 1,
-          "shipment_id": 1,
-          "variant_id": 1,
-          "quantity": 30,
-          "unit_cost": 1500.00,
-          "total_cost": 45000.00
-        },
-        {
-          "shipment_item_id": 2,
-          "shipment_id": 1,
-          "variant_id": 5,
-          "quantity": 40,
-          "unit_cost": 1200.00,
-          "total_cost": 48000.00
-        }
-      ],
-      
-      "reviews": [
-        {
-          "review_id": 1,
-          "user_id": 3,
-          "product_id": 1,
-          "rating": 5,
-          "comment": "Отличная футболка, удобная и качественная!",
-          "review_date": "2024-01-16",
-          "is_approved": true
-        },
-        {
-          "review_id": 2,
-          "user_id": 4,
-          "product_id": 2,
-          "rating": 4,
-          "comment": "Хорошие кроссовки, но немного тесные",
-          "review_date": "2024-01-17",
-          "is_approved": true
-        }
-      ]
+  "products": [
+    {
+      "id": 1,
+      "name": "Кроссовки Nike Air Max",
+      "category": "shoes",
+      "price": 8990,
+      "quantity": 15,
+      "description": "Легкие беговые кроссовки с амортизацией Air"
     },
-    
-    "statistics": {
-      "total_products": 5,
-      "total_variants": 5,
-      "total_users": 4,
-      "total_orders": 2,
-      "total_revenue": 17196.10,
-      "last_update": "2024-01-17T15:30:00"
+    {
+      "id": 2,
+      "name": "Футболка Adidas тренировочная",
+      "category": "clothing",
+      "price": 2490,
+      "quantity": 25,
+      "description": "Дышащая футболка для тренировок"
+    },
+    {
+      "id": 3,
+      "name": "Гантели наборные 20 кг",
+      "category": "equipment",
+      "price": 5490,
+      "quantity": 8,
+      "description": "Наборные гантели с неопреновым покрытием"
+    },
+    {
+      "id": 4,
+      "name": "Рюкзак спортивный Puma",
+      "category": "accessories",
+      "price": 3290,
+      "quantity": 12,
+      "description": "Вместительный рюкзак для тренировок"
+    },
+    {
+      "id": 5,
+      "name": "Штаны для йоги Nike Pro",
+      "category": "clothing",
+      "price": 3990,
+      "quantity": 18,
+      "description": "Эластичные штаны для занятий йогой и фитнесом"
+    },
+    {
+      "id": 6,
+      "name": "Футбольный мяч Adidas",
+      "category": "equipment",
+      "price": 2990,
+      "quantity": 5,
+      "description": "Официальный мяч для футбольных матчей"
     }
-
+  ],
+  "users": [
+    {
+      "id": 1,
+      "name": "Администратор",
+      "email": "admin@sportexpert.ru",
+      "loyaltyPoints": 1250,
+      "isAdmin": true
+    },
+    {
+      "id": 2,
+      "name": "Иван Петров",
+      "email": "ivan@example.com",
+      "loyaltyPoints": 350,
+      "isAdmin": false
+    }
+  ],
+  "orders": [
+    {
+      "id": 1,
+      "userId": 2,
+      "items": [
+        {
+          "id": 2,
+          "name": "Футболка Adidas тренировочная",
+          "price": 2490,
+          "quantity": 1
+        },
+        {
+          "id": 6,
+          "name": "Футбольный мяч Adidas",
+          "price": 2990,
+          "quantity": 1
+        }
+      ],
+      "total": 5480,
+      "pointsEarned": 275,
+      "date": "2024-03-15",
+      "status": "доставлен"
+    }
+  ],
+  "loyaltySettings": {
+    "pointsPer100Rub": 5,
+    "levels": [
+      {
+        "name": "Базовый",
+        "minPoints": 0,
+        "discount": 0
+      },
+      {
+        "name": "Серебряный",
+        "minPoints": 1000,
+        "discount": 5
+      },
+      {
+        "name": "Золотой",
+        "minPoints": 5000,
+        "discount": 10
+      },
+      {
+        "name": "Платиновый",
+        "minPoints": 15000,
+        "discount": 15
+      }
+    ]
   }
+}
