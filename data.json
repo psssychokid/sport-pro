@@ -8,8 +8,8 @@
           "user_id": 1,
           "email": "admin@sportpro.ru",
           "password": "Admin123!",
-          "first_name": "Андрей",
-          "last_name": "Смирнов",
+          "first_name": "Дмитрий",
+          "last_name": "Сагдиев",
           "phone": "+79161112233",
           "user_role": "admin",
           "bonus_points": 0,
@@ -384,4 +384,5 @@
       "total_revenue": 17196.10,
       "last_update": "2024-01-17T15:30:00"
     }
+
   }
