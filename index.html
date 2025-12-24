@@ -3,127 +3,705 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SportPro - Система управления магазином</title>
+    <title>SportPro - Система управления магазином спортивных товаров</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
-        *{margin:0;padding:0;box-sizing:border-box}
-        body{font-family:'Segoe UI',sans-serif;background:#f0f2f5;display:flex;justify-content:center;align-items:center;min-height:100vh;padding:20px}
-        .container{background:#fff;border-radius:10px;box-shadow:0 5px 15px rgba(0,0,0,0.1);width:100%;max-width:1200px;min-height:600px;display:flex;flex-direction:column}
-        .header{background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);color:#fff;padding:20px;display:flex;justify-content:space-between;align-items:center}
-        .logo{display:flex;align-items:center;gap:10px;font-size:20px;font-weight:700}
-        .logo span{color:#4CAF50}
-        .user-info{display:flex;align-items:center;gap:10px}
-        .user-avatar{width:40px;height:40px;background:#4CAF50;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:bold;color:#fff}
-        .nav{background:#f8f9fa;padding:15px;border-bottom:1px solid #e0e0e0}
-        .nav-tabs{display:flex;gap:5px;flex-wrap:wrap}
-        .tab-btn{padding:10px 15px;background:#fff;border:1px solid #ddd;border-radius:5px;cursor:pointer;font-weight:500;color:#555;display:flex;align-items:center;gap:5px;font-size:14px}
-        .tab-btn.active{background:#4CAF50;color:#fff;border-color:#4CAF50}
-        .main-content{display:flex;flex:1}
-        .sidebar{width:220px;background:#f8f9fa;border-right:1px solid #e0e0e0;padding:20px}
-        .main-panel{flex:1;padding:20px;overflow-y:auto}
-        .tab-content{display:none}
-        .tab-content.active{display:block}
-        .dashboard-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:15px;margin-bottom:20px}
-        .stat-card{background:#fff;border-radius:8px;padding:15px;box-shadow:0 3px 10px rgba(0,0,0,0.08);border-left:4px solid #4CAF50}
-        .stat-value{font-size:28px;font-weight:700;color:#333;margin:5px 0}
-        .stat-label{color:#666;font-size:14px;display:flex;align-items:center;gap:5px}
-        .data-table{width:100%;border-collapse:collapse;margin-top:15px;background:#fff;border-radius:8px;overflow:hidden;box-shadow:0 3px 10px rgba(0,0,0,0.08)}
-        .data-table th{background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);color:#fff;padding:12px;text-align:left;font-weight:500}
-        .data-table td{padding:12px;border-bottom:1px solid #f0f0f0}
-        .btn{padding:8px 15px;border:none;border-radius:5px;cursor:pointer;font-weight:500;transition:all 0.3s;display:inline-flex;align-items:center;gap:5px;font-size:14px}
-        .btn-primary{background:#4CAF50;color:#fff}
-        .btn-primary:hover{background:#45a049}
-        .btn-secondary{background:#2196F3;color:#fff}
-        .form-group{margin-bottom:15px}
-        .form-group label{display:block;margin-bottom:5px;font-weight:500;color:#555}
-        .form-group input,.form-group select{width:100%;padding:10px;border:1px solid #ddd;border-radius:5px;font-size:14px}
-        .modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:1000;justify-content:center;align-items:center}
-        .modal-content{background:#fff;border-radius:8px;padding:20px;width:90%;max-width:400px}
-        .modal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:15px;padding-bottom:10px;border-bottom:1px solid #e0e0e0}
-        .close-btn{background:none;border:none;font-size:20px;cursor:pointer;color:#999}
-        .status-badge{padding:4px 8px;border-radius:12px;font-size:12px;font-weight:500}
-        .status-new{background:#e3f2fd;color:#1976d2}
-        .status-completed{background:#e8f5e9;color:#388e3c}
-        .login-container{background:#fff;border-radius:10px;padding:30px;width:100%;max-width:350px;box-shadow:0 10px 30px rgba(0,0,0,0.2)}
-        .footer{background:#f8f9fa;padding:15px;text-align:center;color:#666;border-top:1px solid #e0e0e0;font-size:13px}
-        @media (max-width:768px){.main-content{flex-direction:column}.sidebar{width:100%}.dashboard-stats{grid-template-columns:1fr}}
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, #1a237e 0%, #3949ab 100%);
+            color: white;
+            padding: 20px 0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo i {
+            font-size: 2.5rem;
+            color: #ff9800;
+        }
+
+        .logo h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+
+        .logo span {
+            color: #ff9800;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .user-avatar {
+            width: 45px;
+            height: 45px;
+            background: #ff9800;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        /* Navigation */
+        nav {
+            background: white;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 20px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        }
+
+        .nav-tabs {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            padding: 12px 24px;
+            background: #f0f0f0;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .tab-btn:hover {
+            background: #e0e0e0;
+        }
+
+        .tab-btn.active {
+            background: #3949ab;
+            color: white;
+        }
+
+        /* Main Content */
+        .content-area {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 20px;
+            min-height: 600px;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        }
+
+        .stats-widget {
+            margin-bottom: 25px;
+        }
+
+        .stats-widget h3 {
+            color: #3949ab;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+
+        .stat-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .stat-value {
+            font-weight: 700;
+            color: #1a237e;
+        }
+
+        .quick-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .action-btn {
+            padding: 10px 15px;
+            background: #4caf50;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            text-align: left;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: background 0.3s ease;
+        }
+
+        .action-btn:hover {
+            background: #388e3c;
+        }
+
+        /* Main Content Panel */
+        .main-panel {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            overflow-x: auto;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Table Styles */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .data-table th {
+            background: #3949ab;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: 500;
+        }
+
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .data-table tr:hover {
+            background: #f9f9f9;
+        }
+
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #555;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 1rem;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #3949ab;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: #3949ab;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #303f9f;
+        }
+
+        .btn-success {
+            background: #4caf50;
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #388e3c;
+        }
+
+        .btn-warning {
+            background: #ff9800;
+            color: white;
+        }
+
+        .btn-warning:hover {
+            background: #f57c00;
+        }
+
+        .btn-danger {
+            background: #f44336;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #d32f2f;
+        }
+
+        /* Dashboard Cards */
+        .dashboard-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .card-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .card-icon.sales { background: #4caf50; }
+        .card-icon.products { background: #2196f3; }
+        .card-icon.stock { background: #ff9800; }
+        .card-icon.customers { background: #9c27b0; }
+
+        .card-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #1a237e;
+            margin: 10px 0;
+        }
+
+        .card-title {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        /* Charts */
+        .chart-container {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        }
+
+        /* Search and Filter */
+        .search-filter {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .search-box {
+            flex: 1;
+            min-width: 250px;
+            position: relative;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 10px 40px 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 1rem;
+        }
+
+        .search-box i {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #666;
+        }
+
+        /* Status Badges */
+        .status-badge {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .status-new { background: #e3f2fd; color: #1976d2; }
+        .status-processing { background: #fff3e0; color: #f57c00; }
+        .status-completed { background: #e8f5e9; color: #388e3c; }
+        .status-cancelled { background: #ffebee; color: #d32f2f; }
+
+        /* Product Grid */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .product-image {
+            height: 180px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+        }
+
+        .product-info {
+            padding: 20px;
+        }
+
+        .product-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #1a237e;
+        }
+
+        .product-price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #4caf50;
+            margin: 10px 0;
+        }
+
+        .product-old-price {
+            text-decoration: line-through;
+            color: #999;
+            font-size: 1rem;
+        }
+
+        /* Footer */
+        footer {
+            background: #1a237e;
+            color: white;
+            padding: 30px 0;
+            margin-top: 40px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 20px;
+            color: #ff9800;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-section ul li a {
+            color: #e0e0e0;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section ul li a:hover {
+            color: #ff9800;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .content-area {
+                grid-template-columns: 1fr;
+            }
+            
+            .sidebar {
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+            
+            .nav-tabs {
+                justify-content: center;
+            }
+            
+            .dashboard-cards {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Print Styles */
+        @media print {
+            .no-print {
+                display: none !important;
+            }
+            
+            .main-panel {
+                box-shadow: none;
+            }
+        }
     </style>
 </head>
 <body>
-<div class="container" id="appContainer">
-    <div id="loginScreen" class="login-container">
-        <h2 style="text-align:center;margin-bottom:20px;color:#333"><i class="fas fa-dumbbell" style="color:#4CAF50"></i> SportPro</h2>
-        <div class="form-group"><label>Email</label><input type="email" id="loginEmail" value="admin@sportpro.ru"></div>
-        <div class="form-group"><label>Пароль</label><input type="password" id="loginPassword" value="Admin123!"></div>
-        <button class="btn btn-primary" onclick="login()" style="width:100%"><i class="fas fa-sign-in-alt"></i> Войти</button>
-        <div style="margin-top:15px;font-size:12px;color:#666"><p><strong>Тестовые учетные записи:</strong></p><p>Админ: admin@sportpro.ru / Admin123!</p><p>Менеджер: manager@sportpro.ru / Manager123!</p></div>
-        <button class="btn" onclick="resetDatabase()" style="width:100%;margin-top:10px;background:#f44336;color:#fff"><i class="fas fa-trash"></i> Сбросить базу</button>
-    </div>
-    <div id="mainApp" style="display:none">
-        <div class="header"><div class="logo"><i class="fas fa-dumbbell" style="color:#4CAF50"></i><div>Sport<span>Pro</span> Management</div></div><div class="user-info"><div><div id="currentUserName" style="font-weight:500">Администратор</div><div id="currentUserRole" style="font-size:12px;opacity:0.9">Роль: Админ</div></div><div class="user-avatar" id="userAvatar">АС</div><button class="btn btn-secondary" onclick="logout()"><i class="fas fa-sign-out-alt"></i></button></div></div>
-        <div class="nav"><div class="nav-tabs"><button class="tab-btn active" data-tab="dashboard"><i class="fas fa-tachometer-alt"></i> Дашборд</button><button class="tab-btn" data-tab="products"><i class="fas fa-tshirt"></i> Товары</button><button class="tab-btn" data-tab="orders"><i class="fas fa-shopping-cart"></i> Заказы</button><button class="tab-btn" data-tab="customers"><i class="fas fa-users"></i> Клиенты</button><button class="tab-btn" data-tab="settings"><i class="fas fa-cog"></i> Настройки</button></div></div>
-        <div class="main-content">
-            <div class="sidebar">
-                <div style="margin-bottom:20px"><h3 style="color:#333;margin-bottom:10px;font-size:14px"><i class="fas fa-chart-line"></i> Статистика</h3><div style="font-size:13px"><div style="display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #e0e0e0"><span>Продажи:</span><span style="font-weight:600;color:#4CAF50" id="todaySales">0 ₽</span></div><div style="display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #e0e0e0"><span>Заказы:</span><span style="font-weight:600;color:#2196F3" id="todayOrders">0</span></div><div style="display:flex;justify-content:space-between;padding:5px 0"><span>Низкий остаток:</span><span style="font-weight:600;color:#FF9800" id="lowStockCount">0</span></div></div></div>
-                <div><h3 style="color:#333;margin-bottom:10px;font-size:14px"><i class="fas fa-bolt"></i> Действия</h3><div style="display:flex;flex-direction:column;gap:8px"><button class="btn btn-primary" onclick="showNewOrderModal()"><i class="fas fa-plus-circle"></i> Новый заказ</button><button class="btn btn-secondary" onclick="showNewProductModal()"><i class="fas fa-box"></i> Добавить товар</button><button class="btn" style="background:#FF9800;color:#fff" onclick="generateReport()"><i class="fas fa-file-export"></i> Отчет</button></div></div>
-            </div>
-            <div class="main-panel">
-                <div id="dashboard" class="tab-content active"><h2 style="color:#333;margin-bottom:15px"><i class="fas fa-tachometer-alt"></i> Панель управления</h2>
-                    <div class="dashboard-stats"><div class="stat-card"><div class="stat-label"><i class="fas fa-shopping-cart"></i> Общая выручка</div><div class="stat-value" id="totalRevenue">0 ₽</div></div><div class="stat-card"><div class="stat-label"><i class="fas fa-receipt"></i> Всего заказов</div><div class="stat-value" id="totalOrdersCount">0</div></div><div class="stat-card"><div class="stat-label"><i class="fas fa-box"></i> Товары</div><div class="stat-value" id="totalProductsDashboard">0</div></div><div class="stat-card"><div class="stat-label"><i class="fas fa-users"></i> Клиенты</div><div class="stat-value" id="totalCustomersDashboard">0</div></div></div>
-                    <div style="background:#fff;border-radius:8px;padding:15px;margin-top:15px;box-shadow:0 3px 10px rgba(0,0,0,0.08)"><h3 style="color:#333;margin-bottom:10px"><i class="fas fa-history"></i> Последние заказы</h3><div style="overflow-x:auto"><table class="data-table"><thead><tr><th>№ Заказа</th><th>Клиент</th><th>Дата</th><th>Сумма</th><th>Статус</th></tr></thead><tbody id="recentOrdersBody"></tbody></table></div></div>
-                    <div style="background:#fff;border-radius:8px;padding:15px;margin-top:15px;box-shadow:0 3px 10px rgba(0,0,0,0.08)"><h3 style="color:#333;margin-bottom:10px"><i class="fas fa-exclamation-triangle" style="color:#FF9800"></i> Низкий остаток</h3><div style="overflow-x:auto"><table class="data-table"><thead><tr><th>Товар</th><th>Артикул</th><th>Остаток</th><th>Минимум</th></tr></thead><tbody id="lowStockBody"></tbody></table></div></div>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-dumbbell"></i>
+                    <h1>Sport<span>Pro</span> Management</h1>
                 </div>
-                <div id="products" class="tab-content"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:15px"><h2 style="color:#333"><i class="fas fa-tshirt"></i> Товары</h2><button class="btn btn-primary" onclick="showNewProductModal()"><i class="fas fa-plus"></i> Добавить</button></div><div style="margin-bottom:15px"><input type="text" class="form-group" style="padding:10px;border:1px solid #ddd;border-radius:5px;width:100%" id="productSearch" placeholder="Поиск товаров..." onkeyup="searchProducts()"></div><div style="overflow-x:auto"><table class="data-table"><thead><tr><th>Артикул</th><th>Название</th><th>Категория</th><th>Цена</th><th>Остаток</th><th>Действия</th></tr></thead><tbody id="productsBody"></tbody></table></div></div>
-                <div id="orders" class="tab-content"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:15px"><h2 style="color:#333"><i class="fas fa-shopping-cart"></i> Заказы</h2><button class="btn btn-primary" onclick="showNewOrderModal()"><i class="fas fa-plus"></i> Новый</button></div><div style="overflow-x:auto"><table class="data-table"><thead><tr><th>№ Заказа</th><th>Клиент</th><th>Дата</th><th>Сумма</th><th>Статус</th><th>Действия</th></tr></thead><tbody id="ordersBody"></tbody></table></div></div>
-                <div id="customers" class="tab-content"><h2 style="color:#333;margin-bottom:15px"><i class="fas fa-users"></i> Клиенты</h2><div style="overflow-x:auto"><table class="data-table"><thead><tr><th>ID</th><th>ФИО</th><th>Email</th><th>Телефон</th><th>Бонусы</th><th>Заказов</th></tr></thead><tbody id="customersBody"></tbody></table></div></div>
-                <div id="settings" class="tab-content"><h2 style="color:#333;margin-bottom:15px"><i class="fas fa-cog"></i> Настройки</h2><div style="background:#fff;border-radius:8px;padding:15px;box-shadow:0 3px 10px rgba(0,0,0,0.08)"><h3 style="color:#333;margin-bottom:10px"><i class="fas fa-user-cog"></i> Пользователь</h3><div class="form-group"><label>Имя</label><input type="text" id="settingsName" value="Администратор"></div><div class="form-group"><label>Email</label><input type="email" id="settingsEmail" value="admin@sportpro.ru"></div><div class="form-group"><label>Новый пароль</label><input type="password" id="settingsPassword" placeholder="Оставьте пустым"></div><button class="btn btn-primary" onclick="saveSettings()"><i class="fas fa-save"></i> Сохранить</button></div><div style="background:#fff;border-radius:8px;padding:15px;margin-top:15px;box-shadow:0 3px 10px rgba(0,0,0,0.08)"><h3 style="color:#333;margin-bottom:10px"><i class="fas fa-database"></i> Данные</h3><div style="display:flex;gap:10px;flex-wrap:wrap"><button class="btn btn-secondary" onclick="exportData()"><i class="fas fa-download"></i> Экспорт</button><button class="btn btn-primary" onclick="backupData()"><i class="fas fa-save"></i> Резервная копия</button></div></div></div>
+                <div class="user-info">
+                    <div>
+                        <div class="user-name" id="currentUserName">Андрей Смирнов</div>
+                        <div class="user-role" id="currentUserRole">Администратор</div>
+                    </div>
+                    <div class="user-avatar" id="userAvatar">АС</div>
+                </div>
             </div>
         </div>
-        <div class="footer">© 2025 SportPro Management System | Версия 1.0</div>
-    </div>
-</div>
-<div id="newOrderModal" class="modal"><div class="modal-content"><div class="modal-header"><h3 class="modal-title"><i class="fas fa-plus-circle"></i> Новый заказ</h3><button class="close-btn" onclick="closeModal('newOrderModal')">&times;</button></div><div id="orderModalContent"></div></div></div>
-<div id="newProductModal" class="modal"><div class="modal-content"><div class="modal-header"><h3 class="modal-title"><i class="fas fa-box"></i> Новый товар</h3><button class="close-btn" onclick="closeModal('newProductModal')">&times;</button></div><form id="productForm" onsubmit="saveProduct(event)"><div class="form-group"><label>Артикул *</label><input type="text" id="productCode" required></div><div class="form-group"><label>Название *</label><input type="text" id="productName" required></div><div class="form-group"><label>Цена продажи *</label><input type="number" id="sellingPrice" step="0.01" required></div><div style="display:flex;gap:10px;margin-top:15px"><button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Сохранить</button><button type="button" class="btn" onclick="closeModal('newProductModal')">Отмена</button></div></form></div></div>
-<div id="notification" style="position:fixed;top:20px;right:20px;padding:10px 20px;background:#4CAF50;color:#fff;border-radius:5px;box-shadow:0 5px 15px rgba(0,0,0,0.2);z-index:1001;display:none"></div>
-<script>
-let database={users:[],products:[],orders:[],categories:[],brands:[],suppliers:[]};let currentUser=null;let currentTab='dashboard';
-function hashPassword(p){let h=0;for(let i=0;i<p.length;i++){const c=p.charCodeAt(i);h=((h<<5)-h)+c;h=h&h}return h.toString()}
-function initDatabase(){const s=localStorage.getItem('sportpro_database');if(s){database=JSON.parse(s)}else{initializeTestData()}updateDashboard();loadProducts();loadOrders();loadCustomers();updateSidebarStats()}
-function initializeTestData(){const a=hashPassword('Admin123!'),m=hashPassword('Manager123!'),c=hashPassword('Client123!');database={users:[{id:1,email:"admin@sportpro.ru",password:a,firstName:"Андрей",lastName:"Смирнов",phone:"+79161112233",role:"admin",bonusPoints:0,isActive:true},{id:2,email:"manager@sportpro.ru",password:m,firstName:"Ольга",lastName:"Иванова",phone:"+79162223344",role:"manager",bonusPoints:0,isActive:true},{id:3,email:"ivanov@mail.ru",password:c,firstName:"Иван",lastName:"Иванов",phone:"+79165556677",role:"customer",bonusPoints:150,isActive:true}],categories:[{id:1,name:"Одежда",parentId:null,isActive:true},{id:2,name:"Обувь",parentId:null,isActive:true},{id:3,name:"Футболки",parentId:1,isActive:true},{id:4,name:"Кроссовки",parentId:2,isActive:true}],brands:[{id:1,name:"Nike",country:"USA",isActive:true},{id:2,name:"Adidas",country:"Germany",isActive:true}],suppliers:[{id:1,name:"СпортИмпорт",contactPerson:"Иванов И.И.",phone:"+79161234567",email:"import@sport.ru",rating:4.8}],products:[{id:1,code:"NIKE-TS-DRIFIT",name:"Футболка Nike Dri-FIT",categoryId:3,brandId:1,supplierId:1,description:"Дышащая футболка",purchasePrice:1500,sellingPrice:2999,stock:25,minStock:10,isActive:true},{id:2,code:"ADIDAS-UB-22",name:"Кроссовки Adidas Ultraboost",categoryId:4,brandId:2,supplierId:1,description:"Беговые кроссовки",purchasePrice:5000,sellingPrice:8999,stock:8,minStock:5,isActive:true}],orders:[{id:1,number:"ORD-001",customerId:3,employeeId:2,date:"2024-01-15",total:8497,discountAmount:299.9,finalAmount:8197.1,status:"completed",paymentMethod:"card",paymentStatus:"paid",items:[{productId:1,quantity:2,price:2999},{productId:2,quantity:1,price:2499}]}]};saveDatabase()}
-function login(){const e=document.getElementById('loginEmail').value,p=document.getElementById('loginPassword').value,h=hashPassword(p);const u=database.users.find(u=>u.email===e&&u.password===h);if(u){currentUser=u;showNotification('Вход выполнен!','success');document.getElementById('loginScreen').style.display='none';document.getElementById('mainApp').style.display='block';document.getElementById('currentUserName').textContent=`${u.firstName} ${u.lastName}`;document.getElementById('currentUserRole').textContent=`Роль: ${getRoleName(u.role)}`;document.getElementById('userAvatar').textContent=`${u.firstName[0]}${u.lastName[0]}`;initDatabase();showTab(currentTab)}else{showNotification('Неверный email или пароль!','error')}}
-function logout(){currentUser=null;document.getElementById('mainApp').style.display='none';document.getElementById('loginScreen').style.display='block';showNotification('Вы вышли из системы','info')}
-function resetDatabase(){if(confirm('Сбросить базу данных?')){localStorage.removeItem('sportpro_database');showNotification('База сброшена! Перезагрузите страницу.','success');location.reload()}}
-function showNotification(m,t='info'){const n=document.getElementById('notification');n.textContent=m;n.style.display='block';n.style.background=t==='success'?'#4CAF50':t==='error'?'#f44336':t==='warning'?'#FF9800':'#2196F3';setTimeout(()=>{n.style.display='none'},3000)}
-function showTab(t){document.querySelectorAll('.tab-content').forEach(tab=>tab.classList.remove('active'));document.querySelectorAll('.tab-btn').forEach(btn=>btn.classList.remove('active'));document.getElementById(t).classList.add('active');document.querySelector(`[data-tab="${t}"]`).classList.add('active');if(t==='dashboard')updateDashboard();else if(t==='products')loadProducts();else if(t==='orders')loadOrders();else if(t==='customers')loadCustomers()}
-function updateDashboard(){const r=database.orders.reduce((s,o)=>s+o.finalAmount,0),oc=database.orders.length,pc=database.products.length,cc=database.users.filter(u=>u.role==='customer').length;document.getElementById('totalRevenue').textContent=formatCurrency(r);document.getElementById('totalOrdersCount').textContent=oc;document.getElementById('totalProductsDashboard').textContent=pc;document.getElementById('totalCustomersDashboard').textContent=cc;const t=new Date().toISOString().split('T')[0],to=database.orders.filter(o=>o.date===t),ts=to.reduce((s,o)=>s+o.finalAmount,0);document.getElementById('todaySales').textContent=formatCurrency(ts);document.getElementById('todayOrders').textContent=to.length;loadRecentOrders();loadLowStockProducts();updateSidebarStats()}
-function loadRecentOrders(){const b=document.getElementById('recentOrdersBody');b.innerHTML='';const ro=[...database.orders].sort((a,b)=>new Date(b.date)-new Date(a.date)).slice(0,5);ro.forEach(o=>{const c=database.users.find(u=>u.id===o.customerId);const n=c?`${c.firstName} ${c.lastName}`:'Неизвестно';b.innerHTML+=`<tr><td>${o.number}</td><td>${n}</td><td>${o.date}</td><td>${formatCurrency(o.finalAmount)}</td><td><span class="status-badge status-${o.status}">${getOrderStatusName(o.status)}</span></td></tr>`})}
-function loadLowStockProducts(){const b=document.getElementById('lowStockBody');b.innerHTML='';const lsp=database.products.filter(p=>p.stock<=p.minStock);document.getElementById('lowStockCount').textContent=lsp.length;lsp.forEach(p=>{b.innerHTML+=`<tr><td>${p.name}</td><td>${p.code}</td><td>${p.stock}</td><td>${p.minStock}</td></tr>`})}
-function loadProducts(){const b=document.getElementById('productsBody');b.innerHTML='';database.products.forEach(p=>{const c=database.categories.find(c=>c.id===p.categoryId);b.innerHTML+=`<tr><td>${p.code}</td><td>${p.name}</td><td>${c?c.name:'Неизвестно'}</td><td>${formatCurrency(p.sellingPrice)}</td><td>${p.stock}</td><td><button class="btn" onclick="viewProduct(${p.id})" title="Просмотр"><i class="fas fa-eye"></i></button><button class="btn" style="background:${p.isActive?'#f44336':'#4CAF50'};color:#fff" onclick="toggleProductStatus(${p.id})" title="${p.isActive?'Деактивировать':'Активировать'}"><i class="fas ${p.isActive?'fa-ban':'fa-check'}"></i></button></td></tr>`});document.getElementById('totalProductsDashboard').textContent=database.products.length}
-function searchProducts(){const s=document.getElementById('productSearch').value.toLowerCase(),r=document.querySelectorAll('#productsBody tr');r.forEach(row=>{row.style.display=row.textContent.toLowerCase().includes(s)?'':'none'})}
-function loadOrders(){const b=document.getElementById('ordersBody');b.innerHTML='';database.orders.forEach(o=>{const c=database.users.find(u=>u.id===o.customerId);const n=c?`${c.firstName} ${c.lastName}`:'Неизвестно';b.innerHTML+=`<tr><td>${o.number}</td><td>${n}</td><td>${o.date}</td><td>${formatCurrency(o.finalAmount)}</td><td><span class="status-badge status-${o.status}">${getOrderStatusName(o.status)}</span></td><td><button class="btn" onclick="viewOrder(${o.id})"><i class="fas fa-eye"></i></button></td></tr>`})}
-function loadCustomers(){const b=document.getElementById('customersBody');b.innerHTML='';const c=database.users.filter(u=>u.role==='customer');c.forEach(u=>{const oc=database.orders.filter(o=>o.customerId===u.id).length;b.innerHTML+=`<tr><td>${u.id}</td><td>${u.firstName} ${u.lastName}</td><td>${u.email}</td><td>${u.phone}</td><td>${u.bonusPoints}</td><td>${oc}</td></tr>`});document.getElementById('totalCustomersDashboard').textContent=c.length}
-function showNewOrderModal(){const m=document.getElementById('newOrderModal'),c=document.getElementById('orderModalContent');c.innerHTML=`<div class="form-group"><label>Клиент *</label><select id="orderCustomer" required><option value="">Выберите клиента</option>${database.users.filter(u=>u.role==='customer').map(u=>`<option value="${u.id}">${u.firstName} ${u.lastName}</option>`).join('')}</select></div><div class="form-group"><label>Товары</label><div id="orderItemsList" style="border:1px solid #ddd;border-radius:5px;padding:10px;min-height:50px;max-height:150px;overflow-y:auto"><div style="color:#999;text-align:center;padding:10px">Товары не добавлены</div></div><div style="display:flex;gap:10px;margin-top:10px"><select id="addProductSelect" style="flex:1"><option value="">Выберите товар</option>${database.products.filter(p=>p.isActive).map(p=>`<option value="${p.id}">${p.name} (${formatCurrency(p.sellingPrice)})</option>`).join('')}</select><input type="number" id="addProductQuantity" value="1" min="1" style="width:80px"><button type="button" class="btn btn-primary" onclick="addProductToOrder()"><i class="fas fa-plus"></i></button></div></div><div class="form-group"><label>Способ оплаты</label><select id="orderPaymentMethod"><option value="cash">Наличные</option><option value="card">Карта</option></select></div><div style="display:flex;justify-content:space-between;align-items:center;margin-top:15px"><div><strong>Итого:</strong><span id="orderTotal" style="font-size:20px;color:#4CAF50;margin-left:10px">0 ₽</span></div><div><button type="button" class="btn btn-primary" onclick="saveOrder()"><i class="fas fa-save"></i> Создать</button><button type="button" class="btn" onclick="closeModal('newOrderModal')">Отмена</button></div></div>`;m.style.display='flex';window.currentOrder={items:[],total:0};updateOrderTotal()}
-function addProductToOrder(){const pid=parseInt(document.getElementById('addProductSelect').value),q=parseInt(document.getElementById('addProductQuantity').value);if(!pid||q<1){showNotification('Выберите товар и количество!','error');return}const p=database.products.find(p=>p.id===pid);if(!p)return;if(p.stock<q){showNotification(`Недостаточно товара! Доступно: ${p.stock}`,'error');return}const ei=window.currentOrder.items.find(i=>i.productId===pid);if(ei){ei.quantity+=q}else{window.currentOrder.items.push({productId:pid,quantity:q,price:p.sellingPrice,productName:p.name})}updateOrderItemsList();updateOrderTotal();document.getElementById('addProductSelect').value='';document.getElementById('addProductQuantity').value=1}
-function updateOrderItemsList(){const c=document.getElementById('orderItemsList');if(window.currentOrder.items.length===0){c.innerHTML='<div style="color:#999;text-align:center;padding:10px">Товары не добавлены</div>';return}c.innerHTML=window.currentOrder.items.map((item,i)=>{const t=item.quantity*item.price;return`<div style="display:flex;justify-content:space-between;align-items:center;padding:8px;border-bottom:1px solid #eee"><div><div style="font-weight:500">${item.productName}</div><div style="font-size:12px;color:#666">${item.quantity} × ${formatCurrency(item.price)} = ${formatCurrency(t)}</div></div><button type="button" class="btn" style="background:#f44336;color:#fff;padding:3px 8px" onclick="removeOrderItem(${i})"><i class="fas fa-trash"></i></button></div>`}).join('')}
-function removeOrderItem(i){window.currentOrder.items.splice(i,1);updateOrderItemsList();updateOrderTotal()}
-function updateOrderTotal(){const t=window.currentOrder.items.reduce((s,item)=>s+(item.quantity*item.price),0);window.currentOrder.total=t;document.getElementById('orderTotal').textContent=formatCurrency(t)}
-function saveOrder(){const cid=parseInt(document.getElementById('orderCustomer').value),pm=document.getElementById('orderPaymentMethod').value;if(!cid){showNotification('Выберите клиента!','error');return}if(window.currentOrder.items.length===0){showNotification('Добавьте товары!','error');return}const o={id:database.orders.length+1,number:`ORD-${String(database.orders.length+1).padStart(3,'0')}`,customerId:cid,employeeId:currentUser.id,date:new Date().toISOString().split('T')[0],total:window.currentOrder.total,discountAmount:0,finalAmount:window.currentOrder.total,status:'new',paymentMethod:pm,paymentStatus:'pending',items:[...window.currentOrder.items]};window.currentOrder.items.forEach(item=>{const p=database.products.find(p=>p.id===item.productId);if(p)p.stock-=item.quantity});database.orders.push(o);const cu=database.users.find(u=>u.id===cid);if(cu)cu.bonusPoints+=Math.floor(o.finalAmount/100);saveDatabase();showNotification(`Заказ ${o.number} создан!`,'success');closeModal('newOrderModal');loadOrders();updateDashboard();loadProducts();loadCustomers()}
-function showNewProductModal(){document.getElementById('newProductModal').style.display='flex';document.getElementById('productForm').reset()}
-function saveProduct(e){e.preventDefault();const p={id:database.products.length+1,code:document.getElementById('productCode').value,name:document.getElementById('productName').value,categoryId:1,brandId:1,supplierId:1,purchasePrice:parseFloat(document.getElementById('sellingPrice').value)*0.6,sellingPrice:parseFloat(document.getElementById('sellingPrice').value),stock:0,minStock:10,isActive:true,description:''};database.products.push(p);saveDatabase();showNotification('Товар добавлен!','success');closeModal('newProductModal');loadProducts();updateDashboard()}
-function viewProduct(pid){const p=database.products.find(p=>p.id===pid);if(!p)return;alert(`Товар: ${p.name}\nАртикул: ${p.code}\nЦена: ${formatCurrency(p.sellingPrice)}\nОстаток: ${p.stock} шт.`)}
-function toggleProductStatus(pid){const p=database.products.find(p=>p.id===pid);if(p){p.isActive=!p.isActive;saveDatabase();loadProducts();showNotification(`Товар ${p.isActive?'активирован':'деактивирован'}`,'success')}}
-function viewOrder(oid){const o=database.orders.find(o=>o.id===oid);if(!o)return;const c=database.users.find(u=>u.id===o.customerId);let msg=`Заказ: ${o.number}\nКлиент: ${c?c.firstName+' '+c.lastName:'Неизвестно'}\nДата: ${o.date}\nСумма: ${formatCurrency(o.finalAmount)}\nСтатус: ${getOrderStatusName(o.status)}\n\nТовары:\n`;o.items.forEach(item=>{const p=database.products.find(p=>p.id===item.productId);msg+=`- ${p?p.name:'Неизвестно'}: ${item.quantity} × ${formatCurrency(item.price)}\n`});alert(msg)}
-function updateSidebarStats(){const t=new Date().toISOString().split('T')[0],to=database.orders.filter(o=>o.date===t),ts=to.reduce((s,o)=>s+o.finalAmount,0),lsc=database.products.filter(p=>p.stock<=p.minStock).length;document.getElementById('todaySales').textContent=formatCurrency(ts);document.getElementById('todayOrders').textContent=to.length;document.getElementById('lowStockCount').textContent=lsc}
-function closeModal(mid){document.getElementById(mid).style.display='none'}
-function formatCurrency(a){return new Intl.NumberFormat('ru-RU',{style:'currency',currency:'RUB',minimumFractionDigits:0}).format(a)}
-function getRoleName(r){const roles={'admin':'Администратор','manager':'Менеджер','customer':'Клиент'};return roles[r]||r}
-function getOrderStatusName(s){const statuses={'new':'Новый','completed':'Завершен'};return statuses[s]||s}
-function saveDatabase(){localStorage.setItem('sportpro_database',JSON.stringify(database))}
-function generateReport(){const t=new Date().toISOString().split('T')[0],r=database.orders.reduce((s,o)=>s+o.finalAmount,0),oc=database.orders.length,pc=database.products.length,cc=database.users.filter(u=>u.role==='customer').length,lsp=database.products.filter(p=>p.stock<=p.minStock);const report=`ОТЧЕТ SPORTPRO\nДата: ${t}\n\nОбщая выручка: ${formatCurrency(r)}\nВсего заказов: ${oc}\nТоваров: ${pc}\nКлиентов: ${cc}\n\nТовары с низким остатком:\n${lsp.length>0?lsp.map(p=>`- ${p.name}: ${p.stock} шт.`).join('\n'):'Нет'}\n\nПользователь: ${currentUser.firstName} ${currentUser.lastName}`;const blob=new Blob([report],{type:'text/plain'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=`report_${t}.txt`;document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(url);showNotification('Отчет создан!','success')}
-function exportData(){const data=JSON.stringify(database,null,2);const blob=new Blob([data],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='sportpro_backup.json';document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(url);showNotification('База экспортирована!','success')}
-function backupData(){localStorage.setItem('sportpro_backup_'+new Date().toISOString().replace(/[:.]/g,'-'),JSON.stringify(database));showNotification('Резервная копия создана!','success')}
-function saveSettings(){if(currentUser){currentUser.firstName=document.getElementById('settingsName').value.split(' ')[0]||'Пользователь';currentUser.lastName=document.getElementById('settingsName').value.split(' ')[1]||'';currentUser.email=document.getElementById('settingsEmail').value;const np=document.getElementById('settingsPassword').value;if(np)currentUser.password=hashPassword(np);saveDatabase();showNotification('Настройки сохранены!','success');document.getElementById('currentUserName').textContent=`${currentUser.firstName} ${currentUser.lastName}`;document.getElementById('userAvatar').textContent=`${currentUser.firstName[0]}${currentUser.lastName[0]}`}}
-document.addEventListener('DOMContentLoaded',function(){document.querySelectorAll('.tab-btn').forEach(btn=>{btn.addEventListener('click',function(){showTab(this.getAttribute('data-tab'))})});setTimeout(()=>{document.getElementById('loginEmail').value='admin@sportpro.ru';document.getElementById('loginPassword').value='Admin123!';login()},100)})
-</script>
-</body>
-</html>
+    </header>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Navigation Tabs -->
+        <nav>
+            <div class="nav-tabs">
+                <button class="tab-btn active" data-tab="dashboard">
+                    <i class="fas fa-tachometer-alt"></i> Дашборд
+                </button>
+                <button class="tab-btn" data-tab="products">
+                    <i class="fas fa-tshirt"></i> Товары
+                </button>
+                <button class="tab-btn" data-tab="orders">
+                    <i class="fas fa-shopping-cart"></i> Заказы
+                </button>
+                <button class="tab-btn" data-tab="customers">
+                    <i class="fas fa-users"></i> Клиенты
+                </button>
+                <button class="tab-btn" data-tab="suppliers">
+                    <i class="fas fa-truck"></i> Поставщики
+                </button>
+                <button class="tab-btn" data-tab="reports">
+                    <i class="fas fa-chart-bar"></i> Отчеты
+                </button>
+                <button class="tab-btn" data-tab="settings">
+                    <i class="fas fa-cog"></i> Настройки
+                </button>
+            </div>
+        </nav>
+
+        <!-- Main Content Area -->
+        <div class="content-area">
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <div class="stats-widget">
+                    <h3><i class="fas fa-chart-line"></i> Статистика</h3>
+                    <div class="stat-item">
+                        <span>Выручка сегодня:</span>
+                        <span class="stat-value" id="todayRevenue">0 ₽</span>
+                    </div>
+                    <div class="stat-item">
+                        <span>Заказов сегодня:</span>
+                        <span class="stat-value" id="todayOrders">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span>Новых клиентов:</span>
+                        <span class="stat-value" id="newCustomers">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span>Товаров на складе:</span>
+                        <span class="stat-value" id="totalStock">0</span>
+                    </div>
+                </div>
+
+                <div class="stats-widget">
+                    <h3><i class="fas fa-bell"></i> Уведомления</h3>
+                    <div id="notificationsList">
+                        <!-- Notifications will be loaded here -->
+                    </div>
+                </div>
+
+                <div class="quick-actions">
+                    <h3><i class="fas fa-bolt"></i> Быстрые действия</h3>
+                    <button class="action-btn" id="btnNewOrder">
+                        <i class="fas fa-plus-circle"></i> Новый заказ
+                    </button>
+                    <button class="action-btn" id="btnNewProduct">
+                        <i class="fas fa-box"></i> Добавить товар
+                    </button>
+                    <button class="action-btn" id="btnQuickReport">
+                        <i class="fas fa-file-export"></i> Быстрый отчет
+                    </button>
+                    <button class="action-btn" id="btnInventory">
+                        <i class="fas fa-clipboard-check"></i> Инвентаризация
+                    </button>
+                </div>
+            </aside>
+
+            <!-- Main Panel -->
+            <main class="main-panel">
+                <!-- Dashboard Tab -->
+                <div id="dashboard" class="tab-content active">
+                    <h2><i class="fas fa-tachometer-alt"></i> Панель управления</h2>
+                    
+                    <!-- Dashboard Cards -->
+                    <div class="dashboard-cards">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>Продажи</h3>
+                                <div class="card-icon sales">
+                                    <i class="fas fa-shopping-cart"></i>
+                                </div>
+                            </div>
+                            <div class="card-value" id="totalSales">0 ₽</div>
+                            <div class="card-title">Общая выручка</div>
+                        </div>
+                        
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>Товары</h3>
+                                <div class="card-icon products">
+                                    <i class="fas fa-tshirt"></i>
+                                </div>
+                            </div>
+                            <div class="card-value" id="totalProducts">0</div>
+                            <div class="card-title">Всего товаров</div>
+                        </div>
+                        
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>Склад</h3>
+                                <div class="card-icon stock">
+                                    <i class="fas fa-warehouse"></i>
+                                </div>
+                            </div>
+                            <div class="card-value" id="lowStock">0</div>
+                            <div class="card-title">Низкий остаток</div>
+                        </div>
+                        
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>Клиенты</h3>
+                                <div class="card-icon customers">
+                                    <i class="fas fa-users"></i>
+                                </div>
+                            </div>
+                            <div class="card-value" id="totalCustomers">0</div>
+                            <div class="card-title">Активные клиенты</div>
+                        </div>
+                    </div>
+
+                    <!-- Recent Orders -->
+                    <div class="chart-container">
+                        <h3><i class="fas fa-history"></i> Последние заказы</h3>
+                        <table class="data-table" id="recentOrdersTable">
+                            <thead>
+                                <tr>
+                                    <th>
