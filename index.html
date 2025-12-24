@@ -6,9 +6,7 @@
     <title>SportPro - Система управления магазином спортивных товаров</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* Общие стили */
         * {
             margin: 0;
             padding: 0;
@@ -37,7 +35,6 @@
             flex-direction: column;
         }
 
-        /* Header */
         .header {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
@@ -86,7 +83,6 @@
             color: white;
         }
 
-        /* Navigation */
         .nav {
             background: #f8f9fa;
             padding: 15px 30px;
@@ -126,7 +122,6 @@
             border-color: #4CAF50;
         }
 
-        /* Main Content */
         .main-content {
             display: flex;
             flex: 1;
@@ -147,7 +142,6 @@
             background: white;
         }
 
-        /* Tab Content */
         .tab-content {
             display: none;
             animation: fadeIn 0.5s ease;
@@ -162,7 +156,6 @@
             display: block;
         }
 
-        /* Dashboard Styles */
         .dashboard-stats {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -203,7 +196,6 @@
             gap: 8px;
         }
 
-        /* Table Styles */
         .data-table {
             width: 100%;
             border-collapse: collapse;
@@ -231,7 +223,6 @@
             background: #f9f9f9;
         }
 
-        /* Button Styles */
         .btn {
             padding: 10px 20px;
             border: none;
@@ -263,7 +254,6 @@
             background: #0b7dda;
         }
 
-        /* Form Styles */
         .form-group {
             margin-bottom: 20px;
         }
@@ -294,7 +284,6 @@
             box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
         }
 
-        /* Modal Styles */
         .modal {
             display: none;
             position: fixed;
@@ -346,7 +335,6 @@
             color: #333;
         }
 
-        /* Product Grid */
         .product-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -395,7 +383,6 @@
             margin: 10px 0;
         }
 
-        /* Responsive Design */
         @media (max-width: 768px) {
             .container {
                 border-radius: 0;
@@ -420,7 +407,6 @@
             }
         }
 
-        /* Status Badges */
         .status-badge {
             padding: 6px 12px;
             border-radius: 20px;
@@ -433,7 +419,6 @@
         .status-completed { background: #e8f5e9; color: #388e3c; }
         .status-cancelled { background: #ffebee; color: #d32f2f; }
 
-        /* Search Bar */
         .search-bar {
             margin-bottom: 20px;
             display: flex;
@@ -448,7 +433,6 @@
             font-size: 16px;
         }
 
-        /* Loader */
         .loader {
             display: none;
             text-align: center;
@@ -459,14 +443,12 @@
             display: block;
         }
 
-        /* Action Buttons */
         .action-buttons {
             display: flex;
             gap: 10px;
             margin-bottom: 20px;
         }
 
-        /* Chart Container */
         .chart-container {
             background: white;
             border-radius: 10px;
@@ -475,7 +457,6 @@
             box-shadow: 0 5px 15px rgba(0,0,0,0.08);
         }
 
-        /* Notification */
         .notification {
             position: fixed;
             top: 20px;
@@ -495,7 +476,6 @@
             to { transform: translateX(0); opacity: 1; }
         }
 
-        /* Quick Stats */
         .quick-stats {
             margin-bottom: 30px;
         }
@@ -507,7 +487,6 @@
             border-bottom: 1px solid #e0e0e0;
         }
 
-        /* Login Page */
         .login-container {
             background: white;
             border-radius: 15px;
@@ -529,7 +508,6 @@
             gap: 20px;
         }
 
-        /* Footer */
         .footer {
             background: #f8f9fa;
             padding: 20px;
@@ -564,6 +542,9 @@
                 <p>Менеджер: manager@sportpro.ru / Manager123!</p>
                 <p>Кассир: cashier1@sportpro.ru / Cashier123!</p>
             </div>
+            <button class="btn" onclick="resetDatabase()" style="width: 100%; margin-top: 10px; background: #f44336; color: white;">
+                <i class="fas fa-trash"></i> Сбросить базу данных (если не получается войти)
+            </button>
         </div>
 
         <!-- Main Application -->
@@ -1180,6 +1161,18 @@
         let currentUser = null;
         let currentTab = 'dashboard';
 
+        // Простая функция для хэширования пароля
+        function hashPassword(password) {
+            // Простой хэш для демонстрации (в реальном приложении используйте более безопасные методы)
+            let hash = 0;
+            for (let i = 0; i < password.length; i++) {
+                const char = password.charCodeAt(i);
+                hash = ((hash << 5) - hash) + char;
+                hash = hash & hash;
+            }
+            return hash.toString();
+        }
+
         // Инициализация базы данных
         function initDatabase() {
             // Загружаем из localStorage или используем тестовые данные
@@ -1203,12 +1196,18 @@
 
         // Инициализация тестовых данных
         function initializeTestData() {
+            // Создаем хэши паролей
+            const adminPass = hashPassword('Admin123!');
+            const managerPass = hashPassword('Manager123!');
+            const cashierPass = hashPassword('Cashier123!');
+            const clientPass = hashPassword('Client123!');
+            
             database = {
                 users: [
                     {
                         id: 1,
                         email: "admin@sportpro.ru",
-                        password: "Admin123!",
+                        password: adminPass, // Храним хэш
                         firstName: "Андрей",
                         lastName: "Смирнов",
                         phone: "+79161112233",
@@ -1219,7 +1218,7 @@
                     {
                         id: 2,
                         email: "manager@sportpro.ru",
-                        password: "Manager123!",
+                        password: managerPass,
                         firstName: "Ольга",
                         lastName: "Иванова",
                         phone: "+79162223344",
@@ -1229,13 +1228,35 @@
                     },
                     {
                         id: 3,
+                        email: "cashier1@sportpro.ru",
+                        password: cashierPass,
+                        firstName: "Сергей",
+                        lastName: "Петров",
+                        phone: "+79163334455",
+                        role: "cashier",
+                        bonusPoints: 0,
+                        isActive: true
+                    },
+                    {
+                        id: 4,
                         email: "ivanov@mail.ru",
-                        password: "Client123!",
+                        password: clientPass,
                         firstName: "Иван",
                         lastName: "Иванов",
                         phone: "+79165556677",
                         role: "customer",
                         bonusPoints: 150,
+                        isActive: true
+                    },
+                    {
+                        id: 5,
+                        email: "petrova@mail.ru",
+                        password: clientPass,
+                        firstName: "Мария",
+                        lastName: "Петрова",
+                        phone: "+79166667788",
+                        role: "customer",
+                        bonusPoints: 320,
                         isActive: true
                     }
                 ],
@@ -1252,7 +1273,9 @@
                 brands: [
                     {id: 1, name: "Nike", country: "USA", isActive: true},
                     {id: 2, name: "Adidas", country: "Germany", isActive: true},
-                    {id: 3, name: "Puma", country: "Germany", isActive: true}
+                    {id: 3, name: "Puma", country: "Germany", isActive: true},
+                    {id: 4, name: "Reebok", country: "USA", isActive: true},
+                    {id: 5, name: "Wilson", country: "USA", isActive: true}
                 ],
                 
                 suppliers: [
@@ -1282,7 +1305,7 @@
                         categoryId: 4,
                         brandId: 1,
                         supplierId: 1,
-                        description: "Дышащая футболка для тренировок",
+                        description: "Дышащая футболка для тренировок с технологией Dri-FIT",
                         purchasePrice: 1500,
                         sellingPrice: 2999,
                         stock: 25,
@@ -1296,10 +1319,38 @@
                         categoryId: 6,
                         brandId: 2,
                         supplierId: 2,
-                        description: "Беговые кроссовки с технологией Boost",
+                        description: "Беговые кроссовки с технологией Boost для максимального комфорта",
                         purchasePrice: 5000,
                         sellingPrice: 8999,
                         stock: 8,
+                        minStock: 5,
+                        isActive: true
+                    },
+                    {
+                        id: 3,
+                        code: "PUMA-SH-ESS",
+                        name: "Шорты Puma Essentials",
+                        categoryId: 5,
+                        brandId: 3,
+                        supplierId: 1,
+                        description: "Удобные шорты для тренировок из мягкого материала",
+                        purchasePrice: 1200,
+                        sellingPrice: 2499,
+                        stock: 30,
+                        minStock: 10,
+                        isActive: true
+                    },
+                    {
+                        id: 4,
+                        code: "WILSON-VB-OFF",
+                        name: "Мяч волейбольный Wilson Official",
+                        categoryId: 3,
+                        brandId: 5,
+                        supplierId: 2,
+                        description: "Официальный мяч для волейбола профессионального уровня",
+                        purchasePrice: 2000,
+                        sellingPrice: 3999,
+                        stock: 15,
                         minStock: 5,
                         isActive: true
                     }
@@ -1309,14 +1360,34 @@
                     {
                         id: 1,
                         number: "ORD-001",
-                        customerId: 3,
+                        customerId: 4,
+                        employeeId: 2,
                         date: "2024-01-15",
                         total: 8497.00,
+                        discountAmount: 299.90,
+                        finalAmount: 8197.10,
                         status: "completed",
                         paymentMethod: "card",
+                        paymentStatus: "paid",
                         items: [
                             {productId: 1, quantity: 2, price: 2999},
-                            {productId: 2, quantity: 1, price: 2499}
+                            {productId: 3, quantity: 1, price: 2499}
+                        ]
+                    },
+                    {
+                        id: 2,
+                        number: "ORD-002",
+                        customerId: 5,
+                        employeeId: 2,
+                        date: "2024-01-16",
+                        total: 8999.00,
+                        discountAmount: 0,
+                        finalAmount: 8999.00,
+                        status: "processing",
+                        paymentMethod: "cash",
+                        paymentStatus: "paid",
+                        items: [
+                            {productId: 2, quantity: 1, price: 8999}
                         ]
                     }
                 ],
@@ -1332,7 +1403,11 @@
             const email = document.getElementById('loginEmail').value;
             const password = document.getElementById('loginPassword').value;
             
-            const user = database.users.find(u => u.email === email && u.password === password);
+            // Хэшируем введенный пароль для сравнения
+            const hashedPassword = hashPassword(password);
+            
+            // Ищем пользователя с таким email и хэшем пароля
+            const user = database.users.find(u => u.email === email && u.password === hashedPassword);
             
             if (user) {
                 currentUser = user;
@@ -1366,6 +1441,15 @@
             document.getElementById('mainApp').style.display = 'none';
             document.getElementById('loginScreen').style.display = 'block';
             showNotification('Вы вышли из системы', 'info');
+        }
+
+        // Сброс базы данных
+        function resetDatabase() {
+            if (confirm('Вы уверены, что хотите сбросить базу данных? Все данные будут удалены.')) {
+                localStorage.removeItem('sportpro_database');
+                showNotification('База данных сброшена! Перезагрузите страницу.', 'success');
+                location.reload();
+            }
         }
 
         // Показать уведомление
@@ -1430,7 +1514,7 @@
         // Обновление дашборда
         function updateDashboard() {
             // Общая статистика
-            const totalRevenue = database.orders.reduce((sum, order) => sum + order.total, 0);
+            const totalRevenue = database.orders.reduce((sum, order) => sum + order.finalAmount, 0);
             const totalOrders = database.orders.length;
             const totalProducts = database.products.length;
             const totalCustomers = database.users.filter(u => u.role === 'customer').length;
@@ -1442,13 +1526,11 @@
             
             // Обновляем сегодняшние продажи
             const today = new Date().toISOString().split('T')[0];
-            const todaySales = database.orders
-                .filter(order => order.date === today)
-                .reduce((sum, order) => sum + order.total, 0);
-            const todayOrders = database.orders.filter(order => order.date === today).length;
+            const todayOrders = database.orders.filter(order => order.date === today);
+            const todaySales = todayOrders.reduce((sum, order) => sum + order.finalAmount, 0);
             
             document.getElementById('todaySales').textContent = formatCurrency(todaySales);
-            document.getElementById('todayOrders').textContent = todayOrders;
+            document.getElementById('todayOrders').textContent = todayOrders.length;
             
             // Загружаем последние заказы
             loadRecentOrders();
@@ -1478,7 +1560,7 @@
                     <td>${order.number}</td>
                     <td>${customerName}</td>
                     <td>${order.date}</td>
-                    <td>${formatCurrency(order.total)}</td>
+                    <td>${formatCurrency(order.finalAmount)}</td>
                     <td><span class="status-badge status-${order.status}">${getOrderStatusName(order.status)}</span></td>
                     <td>
                         <button class="btn" onclick="viewOrder(${order.id})" style="padding: 5px 10px; font-size: 12px;">
@@ -1499,14 +1581,11 @@
             document.getElementById('lowStockCount').textContent = lowStockProducts.length;
             
             lowStockProducts.forEach(product => {
-                const category = database.categories.find(c => c.id === product.categoryId);
-                const categoryName = category ? category.name : 'Неизвестно';
-                
                 const row = document.createElement('tr');
                 row.innerHTML = `
                     <td>${product.name}</td>
                     <td>${product.code}</td>
-                    <td>${categoryName}</td>
+                    <td>-</td>
                     <td><span style="color: ${product.stock < 5 ? '#f44336' : '#FF9800'}">${product.stock}</span></td>
                     <td>${product.minStock}</td>
                     <td>
@@ -1589,7 +1668,7 @@
                     <td>${order.number}</td>
                     <td>${customerName}</td>
                     <td>${order.date}</td>
-                    <td>${formatCurrency(order.total)}</td>
+                    <td>${formatCurrency(order.finalAmount)}</td>
                     <td>${getPaymentMethodName(order.paymentMethod)}</td>
                     <td><span class="status-badge status-${order.status}">${getOrderStatusName(order.status)}</span></td>
                     <td>
@@ -1614,6 +1693,9 @@
             
             customers.forEach(customer => {
                 const orderCount = database.orders.filter(o => o.customerId === customer.id).length;
+                const totalSpent = database.orders
+                    .filter(o => o.customerId === customer.id)
+                    .reduce((sum, order) => sum + order.finalAmount, 0);
                 
                 const row = document.createElement('tr');
                 row.innerHTML = `
@@ -1644,6 +1726,12 @@
             // Общие бонусы
             const totalBonusPoints = customers.reduce((sum, customer) => sum + customer.bonusPoints, 0);
             document.getElementById('totalBonusPoints').textContent = totalBonusPoints;
+            
+            // Средний чек
+            const totalOrders = database.orders.length;
+            const totalRevenue = database.orders.reduce((sum, order) => sum + order.finalAmount, 0);
+            const averageOrderValue = totalOrders > 0 ? totalRevenue / totalOrders : 0;
+            document.getElementById('averageOrderValue').textContent = formatCurrency(averageOrderValue);
         }
 
         // Загрузка поставщиков
@@ -1707,7 +1795,7 @@
                     <div style="display: flex; gap: 10px; margin-top: 10px;">
                         <select id="addProductSelect" style="flex: 1;">
                             <option value="">Выберите товар</option>
-                            ${database.products.map(product => `
+                            ${database.products.filter(p => p.isActive).map(product => `
                                 <option value="${product.id}">${product.name} (${formatCurrency(product.sellingPrice)})</option>
                             `).join('')}
                         </select>
@@ -1861,10 +1949,14 @@
                 id: database.orders.length + 1,
                 number: `ORD-${String(database.orders.length + 1).padStart(3, '0')}`,
                 customerId: customerId,
+                employeeId: currentUser.id,
                 date: new Date().toISOString().split('T')[0],
                 total: window.currentOrder.total,
+                discountAmount: 0,
+                finalAmount: window.currentOrder.total,
                 status: 'new',
                 paymentMethod: paymentMethod,
+                paymentStatus: 'pending',
                 items: [...window.currentOrder.items]
             };
             
@@ -1883,7 +1975,7 @@
             const customer = database.users.find(u => u.id === customerId);
             if (customer) {
                 // 1 балл за каждые 100 рублей
-                const bonusPoints = Math.floor(newOrder.total / 100);
+                const bonusPoints = Math.floor(newOrder.finalAmount / 100);
                 customer.bonusPoints += bonusPoints;
             }
             
@@ -1900,6 +1992,7 @@
             loadOrders();
             updateDashboard();
             loadProducts();
+            loadCustomers();
         }
 
         // Показать модальное окно нового товара
@@ -1909,10 +2002,13 @@
             const brandSelect = document.getElementById('productBrand');
             
             categorySelect.innerHTML = '<option value="">Выберите категорию</option>' +
-                database.categories.map(cat => `<option value="${cat.id}">${cat.name}</option>`).join('');
+                database.categories.filter(c => !c.parentId).map(cat => `<option value="${cat.id}">${cat.name}</option>`).join('');
             
             brandSelect.innerHTML = '<option value="">Выберите бренд</option>' +
                 database.brands.map(brand => `<option value="${brand.id}">${brand.name}</option>`).join('');
+            
+            // Сбрасываем форму
+            document.getElementById('productForm').reset();
             
             // Показываем модальное окно
             document.getElementById('newProductModal').style.display = 'flex';
@@ -1933,7 +2029,8 @@
                 stock: 0,
                 minStock: 10,
                 isActive: true,
-                description: ''
+                description: '',
+                supplierId: 1
             };
             
             database.products.push(product);
@@ -1986,7 +2083,6 @@
 
         // Редактировать товар
         function editProduct(productId) {
-            // Реализация редактирования товара
             showNotification('Функция редактирования в разработке', 'info');
         }
 
@@ -2006,6 +2102,10 @@
             const product = database.products.find(p => p.id === productId);
             if (product) {
                 const orderQuantity = product.minStock * 2;
+                product.stock += orderQuantity;
+                saveDatabase();
+                loadProducts();
+                updateDashboard();
                 showNotification(`Заказано ${orderQuantity} единиц товара "${product.name}"`, 'success');
             }
         }
@@ -2016,6 +2116,7 @@
             if (!order) return;
             
             const customer = database.users.find(u => u.id === order.customerId);
+            const employee = database.users.find(u => u.id === order.employeeId);
             
             const modal = document.createElement('div');
             modal.className = 'modal';
@@ -2027,10 +2128,13 @@
                     </div>
                     <div style="line-height: 1.8;">
                         <p><strong>Клиент:</strong> ${customer ? `${customer.firstName} ${customer.lastName}` : 'Неизвестно'}</p>
+                        <p><strong>Сотрудник:</strong> ${employee ? `${employee.firstName} ${employee.lastName}` : 'Неизвестно'}</p>
                         <p><strong>Дата:</strong> ${order.date}</p>
                         <p><strong>Статус:</strong> <span class="status-badge status-${order.status}">${getOrderStatusName(order.status)}</span></p>
                         <p><strong>Оплата:</strong> ${getPaymentMethodName(order.paymentMethod)}</p>
-                        <p><strong>Сумма:</strong> ${formatCurrency(order.total)}</p>
+                        <p><strong>Общая сумма:</strong> ${formatCurrency(order.total)}</p>
+                        <p><strong>Скидка:</strong> ${formatCurrency(order.discountAmount)}</p>
+                        <p><strong>Итоговая сумма:</strong> ${formatCurrency(order.finalAmount)}</p>
                         <hr>
                         <p><strong>Товары:</strong></p>
                         <div style="max-height: 200px; overflow-y: auto;">
@@ -2065,7 +2169,7 @@
             if (!customer) return;
             
             const customerOrders = database.orders.filter(o => o.customerId === customerId);
-            const totalSpent = customerOrders.reduce((sum, order) => sum + order.total, 0);
+            const totalSpent = customerOrders.reduce((sum, order) => sum + order.finalAmount, 0);
             
             const modal = document.createElement('div');
             modal.className = 'modal';
@@ -2241,15 +2345,13 @@
             const rows = document.querySelectorAll('#productsBody tr');
             
             rows.forEach(row => {
-                const category = row.cells[2].textContent;
-                const brand = row.cells[3].textContent;
+                const categoryCell = row.cells[2].textContent;
+                const brandCell = row.cells[3].textContent;
                 
-                const categoryMatch = !categoryId || category.includes(
-                    database.categories.find(c => c.id == categoryId)?.name || ''
-                );
-                const brandMatch = !brandId || brand.includes(
-                    database.brands.find(b => b.id == brandId)?.name || ''
-                );
+                const categoryMatch = !categoryId || categoryCell === 
+                    (database.categories.find(c => c.id == categoryId)?.name || '');
+                const brandMatch = !brandId || brandCell === 
+                    (database.brands.find(b => b.id == brandId)?.name || '');
                 
                 row.style.display = categoryMatch && brandMatch ? '' : 'none';
             });
@@ -2263,7 +2365,7 @@
             const rows = document.querySelectorAll('#ordersBody tr');
             
             rows.forEach(row => {
-                const rowStatus = row.cells[5].textContent.toLowerCase();
+                const rowStatus = row.cells[5].querySelector('.status-badge').textContent.toLowerCase();
                 const rowDate = row.cells[2].textContent;
                 
                 const statusMatch = !status || rowStatus.includes(status);
@@ -2287,20 +2389,41 @@
         // Создать отчет
         function generateReport() {
             const today = new Date().toISOString().split('T')[0];
+            const totalRevenue = database.orders.reduce((sum, order) => sum + order.finalAmount, 0);
+            const totalOrders = database.orders.length;
+            const totalProducts = database.products.length;
+            const totalCustomers = database.users.filter(u => u.role === 'customer').length;
+            const lowStockProducts = database.products.filter(p => p.stock <= p.minStock);
+            
             const report = `
-                ОТЧЕТ О ПРОДАЖАХ
+                ОТЧЕТ О ПРОДАЖАХ SPORTPRO
+                ==========================
                 Дата: ${today}
                 
-                Общая выручка: ${formatCurrency(database.orders.reduce((sum, order) => sum + order.total, 0))}
-                Всего заказов: ${database.orders.length}
-                Товаров в каталоге: ${database.products.length}
-                Клиентов: ${database.users.filter(u => u.role === 'customer').length}
+                ОБЩАЯ СТАТИСТИКА:
+                ------------------
+                Общая выручка: ${formatCurrency(totalRevenue)}
+                Всего заказов: ${totalOrders}
+                Товаров в каталоге: ${totalProducts}
+                Зарегистрированных клиентов: ${totalCustomers}
                 
-                Товары с низким остатком:
-                ${database.products.filter(p => p.stock <= p.minStock).map(p => `  - ${p.name}: ${p.stock} шт. (минимум: ${p.minStock})`).join('\n')}
+                СЕГОДНЯШНИЕ ПОКАЗАТЕЛИ:
+                ------------------------
+                Продажи сегодня: ${formatCurrency(database.orders.filter(o => o.date === today).reduce((sum, o) => sum + o.finalAmount, 0))}
+                Заказов сегодня: ${database.orders.filter(o => o.date === today).length}
                 
-                Последние заказы:
-                ${database.orders.slice(-5).map(order => `  - ${order.number}: ${formatCurrency(order.total)} (${order.date})`).join('\n')}
+                ТОВАРЫ С НИЗКИМ ОСТАТКОМ:
+                --------------------------
+                ${lowStockProducts.length > 0 ? lowStockProducts.map(p => `  - ${p.name}: ${p.stock} шт. (минимум: ${p.minStock})`).join('\n') : '  Нет товаров с низким остатком'}
+                
+                ПОСЛЕДНИЕ ЗАКАЗЫ:
+                -----------------
+                ${database.orders.slice(-5).map(order => `  - ${order.number}: ${formatCurrency(order.finalAmount)} (${order.date})`).join('\n')}
+                
+                СИСТЕМНАЯ ИНФОРМАЦИЯ:
+                ---------------------
+                Пользователь: ${currentUser ? `${currentUser.firstName} ${currentUser.lastName}` : 'Неизвестно'}
+                Дата формирования отчета: ${new Date().toLocaleString()}
             `;
             
             // Создаем файл для скачивания
@@ -2308,7 +2431,7 @@
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = `report_${today}.txt`;
+            a.download = `sportpro_report_${today}.txt`;
             document.body.appendChild(a);
             a.click();
             document.body.removeChild(a);
@@ -2319,7 +2442,7 @@
 
         // Генерация отчета по продажам
         function generateSalesReport() {
-            showNotification('Отчет по продажам в разработке', 'info');
+            showNotification('Детальный отчет по продажам в разработке', 'info');
         }
 
         // Генерация отчета по складу
@@ -2425,7 +2548,8 @@
 
         // Создание резервной копии
         function backupData() {
-            localStorage.setItem('sportpro_backup_' + new Date().toISOString(), JSON.stringify(database));
+            const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+            localStorage.setItem('sportpro_backup_' + timestamp, JSON.stringify(database));
             showNotification('Резервная копия создана!', 'success');
         }
 
@@ -2433,20 +2557,20 @@
         function clearData() {
             if (confirm('ВНИМАНИЕ: Вы уверены, что хотите очистить все данные? Это действие нельзя отменить!')) {
                 localStorage.removeItem('sportpro_database');
-                showNotification('Данные очищены!', 'success');
-                location.reload();
+                showNotification('Данные очищены! Перезагрузите страницу.', 'success');
             }
         }
 
         // Сохранение настроек
         function saveSettings() {
             if (currentUser) {
-                currentUser.firstName = document.getElementById('settingsName').value;
+                currentUser.firstName = document.getElementById('settingsName').value.split(' ')[0] || 'Пользователь';
+                currentUser.lastName = document.getElementById('settingsName').value.split(' ')[1] || '';
                 currentUser.email = document.getElementById('settingsEmail').value;
                 
                 const newPassword = document.getElementById('settingsPassword').value;
                 if (newPassword) {
-                    currentUser.password = newPassword;
+                    currentUser.password = hashPassword(newPassword);
                 }
                 
                 saveDatabase();
@@ -2467,7 +2591,14 @@
 
         // Обновление статистики в боковой панели
         function updateSidebarStats() {
-            // Уже обновляется в updateDashboard()
+            const today = new Date().toISOString().split('T')[0];
+            const todayOrders = database.orders.filter(order => order.date === today);
+            const todaySales = todayOrders.reduce((sum, order) => sum + order.finalAmount, 0);
+            const lowStockCount = database.products.filter(p => p.stock <= p.minStock).length;
+            
+            document.getElementById('todaySales').textContent = formatCurrency(todaySales);
+            document.getElementById('todayOrders').textContent = todayOrders.length;
+            document.getElementById('lowStockCount').textContent = lowStockCount;
         }
 
         // Закрыть модальное окно
@@ -2526,15 +2657,7 @@
                 });
             });
             
-            // Назначаем обработчики для быстрых действий
-            document.getElementById('btnNewOrder')?.addEventListener('click', showNewOrderModal);
-            document.getElementById('btnNewProduct')?.addEventListener('click', showNewProductModal);
-            document.getElementById('btnQuickReport')?.addEventListener('click', generateReport);
-            document.getElementById('btnInventory')?.addEventListener('click', function() {
-                showNotification('Инвентаризация в разработке', 'info');
-            });
-            
-            // Автовход для тестирования (закомментируйте для продакшена)
+            // Автоматический вход для тестирования (раскомментируйте если нужно)
             // setTimeout(() => {
             //     document.getElementById('loginEmail').value = 'admin@sportpro.ru';
             //     document.getElementById('loginPassword').value = 'Admin123!';
